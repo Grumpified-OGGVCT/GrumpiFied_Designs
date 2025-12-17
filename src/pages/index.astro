@@ -22,6 +22,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <li><a href="#!/create">Customize</a></li>
           </ul>
         </li>
+        <li class="nav-search">
+          <form class="search-form" onsubmit="return handleSearch(event)">
+            <input 
+              type="search" 
+              id="shop-search" 
+              placeholder="Search products..." 
+              class="search-input"
+              aria-label="Search products"
+            />
+            <button type="submit" class="search-button" aria-label="Search">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </form>
+        </li>
       </ul>
     </div>
   </nav>
@@ -95,6 +111,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           }, 100);
         }
       }
+    }
+
+    // Handle search form submission
+    function handleSearch(e) {
+      if (e && e.preventDefault) {
+        e.preventDefault();
+      }
+      const searchInput = document.getElementById('shop-search');
+      const query = searchInput.value.trim();
+      if (query) {
+        // Navigate to Spreadshop search
+        window.location.hash = '#!/search?q=' + encodeURIComponent(query);
+        // Scroll to shop section
+        const shopSection = document.getElementById('shop');
+        if (shopSection) {
+          setTimeout(() => {
+            shopSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 100);
+        }
+      }
+      return false;
     }
 
     // Run after shop loads
@@ -200,6 +237,59 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .dropdown-menu a:hover {
       background: #2a2a2a;
       opacity: 1 !important;
+    }
+
+    .nav-search {
+      margin-left: 1rem;
+    }
+
+    .search-form {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 6px;
+      padding: 0.5rem 0.75rem;
+      transition: border-color 0.2s;
+    }
+
+    .search-form:focus-within {
+      border-color: #4a90e2;
+    }
+
+    .search-input {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 0.9rem;
+      width: 200px;
+      outline: none;
+    }
+
+    .search-input::placeholder {
+      color: #888;
+    }
+
+    .search-button {
+      background: transparent;
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: 0.25rem;
+      display: flex;
+      align-items: center;
+      transition: opacity 0.2s;
+    }
+
+    .search-button:hover {
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      .search-input {
+        width: 150px;
+      }
     }
 
     .hero {

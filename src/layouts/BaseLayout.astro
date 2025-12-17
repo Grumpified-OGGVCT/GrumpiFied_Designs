@@ -68,9 +68,36 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
         padding: 0 !important;
       }
 
-      /* Make text white where possible */
+      /* Make text white, but preserve color indicators and images */
       #myShop * {
         color: white !important;
+      }
+
+      /* Don't override colors for color selection circles/swatches */
+      #myShop [class*="color"],
+      #myShop [class*="Color"],
+      #myShop [class*="swatch"],
+      #myShop [class*="Swatch"],
+      #myShop circle[fill],
+      #myShop circle[style*="fill"],
+      #myShop svg circle,
+      #myShop svg [fill],
+      #myShop [style*="background-color"]:not([style*="rgb(255"]):not([style*="#fff"]):not([style*="white"]) {
+        color: inherit !important;
+      }
+
+      /* Preserve fill colors in SVGs */
+      #myShop svg * {
+        color: inherit !important;
+      }
+
+      /* Hide Spreadshop's default navigation menu since we have our own */
+      #myShop > div > div:first-child > div:nth-child(2),
+      #myShop nav[class*="navigation"],
+      #myShop [class*="Navigation"],
+      #myShop [class*="main-nav"],
+      #myShop [class*="MainNav"] {
+        display: none !important;
       }
 
       /* Style product grid */
