@@ -149,7 +149,10 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
       #myShop nav[class*="navigation"],
       #myShop [class*="Navigation"],
       #myShop [class*="main-nav"],
-      #myShop [class*="MainNav"] {
+      #myShop [class*="MainNav"],
+      /* Hide the whited-out menu that appears below product details */
+      #myShop > div > div:first-child > div:nth-child(3),
+      #myShop > div > div:first-child > div:nth-child(3) > div {
         display: none !important;
       }
 
