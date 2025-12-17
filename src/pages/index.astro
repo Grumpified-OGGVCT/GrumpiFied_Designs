@@ -113,8 +113,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       }
     }
 
-    // Handle search form submission
-    function handleSearch(e) {
+    // Handle search form submission - make it global for inline handler
+    window.handleSearch = function(e) {
       if (e && e.preventDefault) {
         e.preventDefault();
       }
@@ -132,7 +132,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         }
       }
       return false;
-    }
+    };
 
     // Run after shop loads
     setTimeout(styleSpreadshopElements, 1000);
