@@ -7,8 +7,8 @@ This repository hosts the GrumpiFied Designs Merch Site, a mirrored site for mer
 ## Repository Structure
 
 - **Root Directory**: Contains core configuration files including `.gitignore`, `LICENSE`, and `README.md`
-- The project uses Node.js/JavaScript-based tooling (based on `.gitignore` patterns)
-- Build artifacts are output to `dist/`, `.next/`, or similar directories depending on the framework used
+- The `.gitignore` patterns suggest a Node.js/JavaScript-based project structure
+- Build artifacts may be output to `dist/`, `.next/`, or similar directories depending on the framework configuration
 
 ## Development Workflow
 
@@ -71,13 +71,19 @@ This repository hosts the GrumpiFied Designs Merch Site, a mirrored site for mer
 
 ## Files to Exclude
 
-The `.gitignore` file defines patterns for files that should not be committed:
-- Build artifacts (`dist/`, `.next/`, `.nuxt/`, etc.)
-- Dependency directories (`node_modules/`, `jspm_packages/`)
-- Log files (`*.log`, `logs/`)
-- Environment files (`.env`, `.env.*` except `.env.example`)
-- Cache directories (`.cache/`, `.parcel-cache/`, etc.)
-- IDE-specific files (`.vscode-test`)
+The `.gitignore` file defines comprehensive patterns for files that should not be committed. Key categories include:
+- **Build artifacts**: `dist/`, `.next/`, `.nuxt/`, `out/`, `build/Release`
+- **Dependency directories**: `node_modules/`, `jspm_packages/`, `web_modules/`
+- **Log files**: `*.log`, `logs/`, `npm-debug.log*`, `yarn-debug.log*`
+- **Environment files**: `.env`, `.env.*` (except `.env.example`)
+- **Cache directories**: `.cache/`, `.parcel-cache/`, `.eslintcache`, `.stylelintcache`, `.nyc_output`
+- **TypeScript cache**: `*.tsbuildinfo`
+- **Test coverage**: `coverage/`, `*.lcov`
+- **Framework-specific**: `.next/`, `.nuxt/`, `.svelte-kit/`, `.vuepress/dist/`, `.docusaurus/`
+- **IDE-specific**: `.vscode-test`
+- **Other**: `*.pid`, `*.seed`, `.tern-port`, `.firebase/`, `.serverless/`
+
+Refer to the `.gitignore` file for the complete and authoritative list of exclusion patterns.
 
 ## Special Notes
 
