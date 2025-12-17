@@ -68,27 +68,47 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
         padding: 0 !important;
       }
 
-      /* Make text white, but preserve color indicators and images */
-      #myShop * {
+      /* Make text white, but be very selective - don't touch color swatches */
+      #myShop p:not([class*="color"]):not([class*="swatch"]),
+      #myShop a:not([class*="color"]):not([class*="swatch"]),
+      #myShop h1:not([class*="color"]):not([class*="swatch"]),
+      #myShop h2:not([class*="color"]):not([class*="swatch"]),
+      #myShop h3:not([class*="color"]):not([class*="swatch"]),
+      #myShop h4:not([class*="color"]):not([class*="swatch"]),
+      #myShop h5:not([class*="color"]):not([class*="swatch"]),
+      #myShop h6:not([class*="color"]):not([class*="swatch"]),
+      #myShop label:not([class*="color"]):not([class*="swatch"]),
+      #myShop button:not([class*="color"]):not([class*="swatch"]):not([role="button"][aria-label*="color"]) {
         color: white !important;
       }
 
-      /* Don't override colors for color selection circles/swatches */
+      /* CRITICAL: Never touch color swatches - preserve their original colors */
       #myShop [class*="color"],
       #myShop [class*="Color"],
       #myShop [class*="swatch"],
       #myShop [class*="Swatch"],
-      #myShop circle[fill],
-      #myShop circle[style*="fill"],
-      #myShop svg circle,
-      #myShop svg [fill],
-      #myShop [style*="background-color"]:not([style*="rgb(255"]):not([style*="#fff"]):not([style*="white"]) {
-        color: inherit !important;
+      #myShop [role="button"][aria-label*="color"],
+      #myShop [role="button"][aria-label*="Color"],
+      #myShop button[aria-label*="color"],
+      #myShop button[aria-label*="Color"],
+      #myShop [style*="background-color"]:not([style*="rgb(255"]):not([style*="#fff"]):not([style*="white"]):not([style*="transparent"]),
+      #myShop circle,
+      #myShop svg,
+      #myShop [fill],
+      #myShop [style*="fill"] {
+        color: unset !important;
+        background-color: unset !important;
+        fill: unset !important;
       }
 
-      /* Preserve fill colors in SVGs */
-      #myShop svg * {
-        color: inherit !important;
+      /* Preserve all SVG and circle colors completely */
+      #myShop svg *,
+      #myShop circle *,
+      #myShop [class*="color"] *,
+      #myShop [class*="swatch"] * {
+        color: unset !important;
+        fill: unset !important;
+        background-color: unset !important;
       }
 
       /* Hide Spreadshop's default navigation menu since we have our own */
