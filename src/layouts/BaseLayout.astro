@@ -61,6 +61,48 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
       a:hover {
         opacity: 0.8;
       }
+
+      /* Hide Spreadshop's default UI elements */
+      #myShop > div:first-child > div:first-child,
+      #myShop .spread-shop-header,
+      #myShop .spread-shop-navigation,
+      #myShop .spread-shop-banner,
+      #myShop iframe[src*="banner"],
+      #myShop > div > div:first-child > div:first-child {
+        display: none !important;
+      }
+
+      /* Override Spreadshop's default styling */
+      #myShop {
+        background: transparent !important;
+        padding: 0 !important;
+      }
+
+      #myShop * {
+        color: white !important;
+      }
+
+      /* Hide Spreadshop's top bar/banner */
+      #myShop > div > div:first-child,
+      #myShop > div > div:first-child > div:first-child {
+        display: none !important;
+      }
+
+      /* Style product grid */
+      #myShop .spread-shop-product,
+      #myShop [class*="product"],
+      #myShop [class*="Product"] {
+        background: #1a1a1a !important;
+        border: 1px solid #333 !important;
+        border-radius: 8px !important;
+        transition: transform 0.2s, box-shadow 0.2s !important;
+      }
+
+      #myShop .spread-shop-product:hover,
+      #myShop [class*="product"]:hover {
+        transform: translateY(-4px) !important;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3) !important;
+      }
     </style>
   </body>
 </html>

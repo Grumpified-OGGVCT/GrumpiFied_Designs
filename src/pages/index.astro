@@ -18,15 +18,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section class="hero">
     <div class="hero-content">
       <h2>Welcome to GrumpiFied Designs</h2>
-      <p>Discover our unique collection of custom merchandise</p>
+      <p>Premium custom merchandise with attitude. Express yourself with style.</p>
+      <div class="hero-cta">
+        <a href="#shop" class="cta-button">Shop Now</a>
+      </div>
     </div>
   </section>
 
   <section id="shop" class="shop-section">
     <div class="container">
-      <h2 class="section-title">Our Products</h2>
-      <div id="myShop">
+      <h2 class="section-title">Featured Products</h2>
+      <p class="section-subtitle">Hand-picked designs that speak your language</p>
+      <div id="myShop" class="shop-wrapper">
         <!-- Spreadshop products will be loaded here -->
+        <div class="shop-loading">Loading amazing products...</div>
       </div>
     </div>
   </section>
@@ -34,6 +39,65 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <footer class="footer">
     <p>&copy; 2025 GrumpiFied Designs. All rights reserved.</p>
   </footer>
+
+  <script is:inline>
+    // Hide Spreadshop's default UI elements after they load
+    function hideSpreadshopUI() {
+      const shopContainer = document.getElementById('myShop');
+      if (!shopContainer) return;
+
+      // Hide top banners, headers, and navigation
+      const elementsToHide = [
+        ...shopContainer.querySelectorAll('div[style*="background"]'),
+        ...shopContainer.querySelectorAll('div[style*="red"]'),
+        ...shopContainer.querySelectorAll('[class*="banner"]'),
+        ...shopContainer.querySelectorAll('[class*="Banner"]'),
+        ...shopContainer.querySelectorAll('[class*="header"]'),
+        ...shopContainer.querySelectorAll('[class*="Header"]'),
+        ...shopContainer.querySelectorAll('[class*="navigation"]'),
+        ...shopContainer.querySelectorAll('[class*="Navigation"]'),
+      ];
+
+      elementsToHide.forEach(el => {
+        if (el.textContent && (
+          el.textContent.includes('Order now') ||
+          el.textContent.includes('Expires today') ||
+          el.textContent.includes('More info') ||
+          el.textContent.includes('Redeem')
+        )) {
+          el.style.display = 'none';
+        }
+      });
+
+      // Hide first child divs that contain headers/banners
+      const firstLevelDivs = shopContainer.querySelectorAll('> div > div:first-child');
+      firstLevelDivs.forEach(div => {
+        const text = div.textContent || '';
+        if (text.includes('Order') || text.includes('Expires') || text.includes('Redeem') || text.includes('More info')) {
+          div.style.display = 'none';
+        }
+      });
+
+      // Hide loading text once products appear
+      const loadingText = document.querySelector('.shop-loading');
+      if (loadingText && shopContainer.querySelector('[class*="product"], [class*="Product"], img')) {
+        loadingText.style.display = 'none';
+      }
+    }
+
+    // Run immediately and on intervals until shop loads
+    hideSpreadshopUI();
+    const interval = setInterval(() => {
+      hideSpreadshopUI();
+      if (document.getElementById('myShop')?.querySelector('[class*="product"], [class*="Product"], img')) {
+        clearInterval(interval);
+      }
+    }, 500);
+
+    // Also run after a delay to catch late-loading elements
+    setTimeout(hideSpreadshopUI, 2000);
+    setTimeout(hideSpreadshopUI, 5000);
+  </script>
 
   <style>
     .navbar {
@@ -91,11 +155,41 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .hero p {
       font-size: 1.25rem;
       opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+
+    .hero-cta {
+      margin-top: 2rem;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+      color: white !important;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(74, 144, 226, 0.4);
+      opacity: 1 !important;
     }
 
     .shop-section {
       padding: 4rem 2rem;
       min-height: 600px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      font-size: 1.1rem;
+      opacity: 0.8;
+      margin-bottom: 3rem;
     }
 
     .container {
@@ -110,11 +204,68 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       font-weight: 700;
     }
 
+    .shop-wrapper {
+      position: relative;
+      min-height: 600px;
+    }
+
     #myShop {
-      min-height: 400px;
-      background-color: #1a1a1a;
-      border-radius: 8px;
-      padding: 2rem;
+      min-height: 600px;
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+    }
+
+    .shop-loading {
+      text-align: center;
+      padding: 3rem;
+      opacity: 0.6;
+      font-size: 1.1rem;
+    }
+
+    /* Hide Spreadshop's default header/nav/banners with more specific selectors */
+    #myShop > div > div:first-child,
+    #myShop > div > div:first-child > div:first-child,
+    #myShop > div > div:first-child > div:first-child > div:first-child {
+      display: none !important;
+    }
+
+    /* Target Spreadshop's top bar specifically */
+    #myShop div[style*="background"],
+    #myShop div[style*="red"],
+    #myShop div[style*="banner"] {
+      display: none !important;
+    }
+
+    /* Style the actual product container */
+    #myShop > div > div:not(:first-child),
+    #myShop > div > div:last-child {
+      display: block !important;
+    }
+
+    /* Custom product card styling */
+    #myShop [class*="product-card"],
+    #myShop [class*="ProductCard"],
+    #myShop [class*="item"],
+    #myShop [class*="Item"] {
+      background: #1a1a1a !important;
+      border: 1px solid #333 !important;
+      border-radius: 12px !important;
+      overflow: hidden !important;
+      transition: all 0.3s ease !important;
+    }
+
+    #myShop [class*="product-card"]:hover,
+    #myShop [class*="ProductCard"]:hover {
+      transform: translateY(-6px) !important;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4) !important;
+      border-color: #4a90e2 !important;
+    }
+
+    /* Hide loading text once shop loads */
+    #myShop:not(:empty) ~ .shop-loading,
+    #myShop:has(> div > div) ~ .shop-loading {
+      display: none;
     }
 
     .footer {
