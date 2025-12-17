@@ -6,11 +6,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <nav class="navbar">
     <div class="nav-container">
       <div class="nav-brand">
-        <h1>GrumpiFied Designs</h1>
+        <a href="/"><h1>GrumpiFied Designs</h1></a>
       </div>
       <ul class="nav-links">
         <li><a href="/">Home</a></li>
-        <li><a href="#shop">Shop</a></li>
+        <li class="nav-dropdown">
+          <a href="#!/all" class="dropdown-toggle">Shop <span class="dropdown-arrow">▼</span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#!/all">All Products</a></li>
+            <li><a href="#!/organic+products?q=D55">Organic Products</a></li>
+            <li><a href="#!/men?q=D1">Men</a></li>
+            <li><a href="#!/women?q=D2">Women</a></li>
+            <li><a href="#!/kids+%26+babies?q=D3">Kids & Babies</a></li>
+            <li><a href="#!/accessories?q=D4">Accessories</a></li>
+            <li><a href="#!/create">Customize</a></li>
+          </ul>
+        </li>
       </ul>
     </div>
   </nav>
@@ -33,6 +44,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <!-- Spreadshop products will be loaded here -->
         <div class="shop-loading">Loading amazing products...</div>
       </div>
+      <div class="shop-actions">
+        <a href="#!/all" class="view-all-btn">View All Products →</a>
+      </div>
     </div>
   </section>
 
@@ -41,47 +55,56 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </footer>
 
   <script is:inline>
-    // Hide Spreadshop's promotional banners only (not products)
-    function hideSpreadshopBanners() {
+    // Handle Spreadshop hash routing - don't hide banners, just style them
+    function styleSpreadshopElements() {
       const shopContainer = document.getElementById('myShop');
       if (!shopContainer) return;
 
-      // Only target elements with specific promotional text
-      const allElements = shopContainer.querySelectorAll('*');
-      allElements.forEach(function(el) {
+      // Style banners to match our theme instead of hiding them
+      const banners = shopContainer.querySelectorAll('*');
+      banners.forEach(function(el) {
         const text = el.textContent || '';
-        const style = window.getComputedStyle(el);
-        const bgColor = style.backgroundColor || '';
         
-        // Only hide if it's clearly a banner/promotional element
-        var isBanner = (text.includes('Order now for delivery') ||
-           text.includes('Expires today') ||
-           text.includes('25% off') ||
-           (text.includes('More info') && bgColor.indexOf('rgb(255') > -1) ||
-           (text.includes('Redeem') && bgColor.indexOf('rgb(255') > -1));
-        
-        // Make sure it's not a product
-        var isProduct = el.querySelector('img[src*="product"]') ||
-          el.querySelector('[class*="product"]') ||
-          el.closest('[class*="product"]');
-        
-        if (isBanner && !isProduct) {
-          el.style.display = 'none';
+        // Style promotional banners to match dark theme
+        if (text.includes('Order now for delivery') || 
+            text.includes('Expires today') || 
+            text.includes('25% off')) {
+          // Keep banners visible but style them
+          el.style.borderRadius = '8px';
+          el.style.marginBottom = '1rem';
         }
       });
 
       // Hide loading text once products appear
       const loadingText = document.querySelector('.shop-loading');
-      const hasProducts = shopContainer.querySelector('img[src*="product"], [class*="product"], [class*="Product"], iframe');
+      const hasProducts = shopContainer.querySelector('img[src*="product"], [class*="product"], [class*="Product"], iframe, [class*="item"]');
       if (loadingText && hasProducts) {
         loadingText.style.display = 'none';
       }
     }
 
+    // Handle hash changes for Spreadshop routing
+    function handleHashChange() {
+      const hash = window.location.hash;
+      if (hash && hash.startsWith('#!/')) {
+        // Spreadshop is handling the route, just ensure smooth scroll
+        const shopSection = document.getElementById('shop');
+        if (shopSection) {
+          setTimeout(() => {
+            shopSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 100);
+        }
+      }
+    }
+
     // Run after shop loads
-    setTimeout(hideSpreadshopBanners, 1000);
-    setTimeout(hideSpreadshopBanners, 3000);
-    setTimeout(hideSpreadshopBanners, 5000);
+    setTimeout(styleSpreadshopElements, 1000);
+    setTimeout(styleSpreadshopElements, 3000);
+    setTimeout(styleSpreadshopElements, 5000);
+    
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+    handleHashChange();
   </script>
 
   <style>
@@ -117,6 +140,66 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .nav-links li a {
       font-weight: 500;
       transition: opacity 0.2s;
+      position: relative;
+    }
+
+    .nav-dropdown {
+      position: relative;
+    }
+
+    .dropdown-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .dropdown-arrow {
+      font-size: 0.7rem;
+      opacity: 0.7;
+      transition: transform 0.2s;
+    }
+
+    .nav-dropdown:hover .dropdown-arrow {
+      transform: rotate(180deg);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 0.5rem 0;
+      margin-top: 0.5rem;
+      min-width: 200px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      z-index: 1000;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .nav-dropdown:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-menu li {
+      margin: 0;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 0.75rem 1.5rem;
+      transition: background 0.2s;
+    }
+
+    .dropdown-menu a:hover {
+      background: #2a2a2a;
+      opacity: 1 !important;
     }
 
     .hero {
@@ -157,11 +240,36 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       font-size: 1.1rem;
       transition: transform 0.2s, box-shadow 0.2s;
       box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+      text-decoration: none;
     }
 
     .cta-button:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 16px rgba(74, 144, 226, 0.4);
+      opacity: 1 !important;
+    }
+
+    .shop-actions {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .view-all-btn {
+      display: inline-block;
+      padding: 0.875rem 2rem;
+      background: transparent;
+      border: 2px solid #4a90e2;
+      color: #4a90e2 !important;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .view-all-btn:hover {
+      background: #4a90e2;
+      color: white !important;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
       opacity: 1 !important;
     }
 
