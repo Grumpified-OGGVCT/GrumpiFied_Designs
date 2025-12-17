@@ -68,9 +68,9 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
         padding: 0 !important;
       }
 
-      /* Make text white, but be very selective - don't touch color swatches */
+      /* Make text white, but NEVER touch images (they are the color swatches!) */
       #myShop p:not([class*="color"]):not([class*="swatch"]),
-      #myShop a:not([class*="color"]):not([class*="swatch"]),
+      #myShop a:not([class*="color"]):not([class*="swatch"]) > :not(img),
       #myShop h1:not([class*="color"]):not([class*="swatch"]),
       #myShop h2:not([class*="color"]):not([class*="swatch"]),
       #myShop h3:not([class*="color"]):not([class*="swatch"]),
@@ -80,6 +80,37 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
       #myShop label:not([class*="color"]):not([class*="swatch"]),
       #myShop button:not([class*="color"]):not([class*="swatch"]):not([role="button"][aria-label*="color"]) {
         color: white !important;
+      }
+
+      /* CRITICAL: NEVER touch images - they ARE the color swatches! */
+      #myShop img {
+        filter: none !important;
+        opacity: 1 !important;
+        color: unset !important;
+        background-color: unset !important;
+      }
+
+      /* Preserve color swatch images specifically */
+      #myShop a[href*="appearance"] img,
+      #myShop a img[alt*="blue"],
+      #myShop a img[alt*="pink"],
+      #myShop a img[alt*="teal"],
+      #myShop a img[alt*="green"],
+      #myShop a img[alt*="red"],
+      #myShop a img[alt*="purple"],
+      #myShop a img[alt*="yellow"],
+      #myShop a img[alt*="gray"],
+      #myShop a img[alt*="white"],
+      #myShop a img[alt*="black"],
+      #myShop a img[alt*="heather"],
+      #myShop a img[alt*="royal"],
+      #myShop a img[alt*="steel"],
+      #myShop a img[alt*="olive"],
+      #myShop a img[alt*="kelly"],
+      #myShop a img[alt*="burgundy"],
+      #myShop a img[alt*="oatmeal"] {
+        filter: none !important;
+        opacity: 1 !important;
       }
 
       /* CRITICAL: Never touch color swatches - preserve their original colors */
@@ -99,6 +130,7 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
         color: unset !important;
         background-color: unset !important;
         fill: unset !important;
+        filter: none !important;
       }
 
       /* Preserve all SVG and circle colors completely */
@@ -109,6 +141,7 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
         color: unset !important;
         fill: unset !important;
         background-color: unset !important;
+        filter: none !important;
       }
 
       /* Hide Spreadshop's default navigation menu since we have our own */
