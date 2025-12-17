@@ -41,62 +41,47 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </footer>
 
   <script is:inline>
-    // Hide Spreadshop's default UI elements after they load
-    function hideSpreadshopUI() {
+    // Hide Spreadshop's promotional banners only (not products)
+    function hideSpreadshopBanners() {
       const shopContainer = document.getElementById('myShop');
       if (!shopContainer) return;
 
-      // Hide top banners, headers, and navigation
-      const elementsToHide = [
-        ...shopContainer.querySelectorAll('div[style*="background"]'),
-        ...shopContainer.querySelectorAll('div[style*="red"]'),
-        ...shopContainer.querySelectorAll('[class*="banner"]'),
-        ...shopContainer.querySelectorAll('[class*="Banner"]'),
-        ...shopContainer.querySelectorAll('[class*="header"]'),
-        ...shopContainer.querySelectorAll('[class*="Header"]'),
-        ...shopContainer.querySelectorAll('[class*="navigation"]'),
-        ...shopContainer.querySelectorAll('[class*="Navigation"]'),
-      ];
-
-      elementsToHide.forEach(el => {
-        if (el.textContent && (
-          el.textContent.includes('Order now') ||
-          el.textContent.includes('Expires today') ||
-          el.textContent.includes('More info') ||
-          el.textContent.includes('Redeem')
-        )) {
+      // Only target elements with specific promotional text
+      const allElements = shopContainer.querySelectorAll('*');
+      allElements.forEach(function(el) {
+        const text = el.textContent || '';
+        const style = window.getComputedStyle(el);
+        const bgColor = style.backgroundColor || '';
+        
+        // Only hide if it's clearly a banner/promotional element
+        var isBanner = (text.includes('Order now for delivery') ||
+           text.includes('Expires today') ||
+           text.includes('25% off') ||
+           (text.includes('More info') && bgColor.indexOf('rgb(255') > -1) ||
+           (text.includes('Redeem') && bgColor.indexOf('rgb(255') > -1));
+        
+        // Make sure it's not a product
+        var isProduct = el.querySelector('img[src*="product"]') ||
+          el.querySelector('[class*="product"]') ||
+          el.closest('[class*="product"]');
+        
+        if (isBanner && !isProduct) {
           el.style.display = 'none';
-        }
-      });
-
-      // Hide first child divs that contain headers/banners
-      const firstLevelDivs = shopContainer.querySelectorAll('> div > div:first-child');
-      firstLevelDivs.forEach(div => {
-        const text = div.textContent || '';
-        if (text.includes('Order') || text.includes('Expires') || text.includes('Redeem') || text.includes('More info')) {
-          div.style.display = 'none';
         }
       });
 
       // Hide loading text once products appear
       const loadingText = document.querySelector('.shop-loading');
-      if (loadingText && shopContainer.querySelector('[class*="product"], [class*="Product"], img')) {
+      const hasProducts = shopContainer.querySelector('img[src*="product"], [class*="product"], [class*="Product"], iframe');
+      if (loadingText && hasProducts) {
         loadingText.style.display = 'none';
       }
     }
 
-    // Run immediately and on intervals until shop loads
-    hideSpreadshopUI();
-    const interval = setInterval(() => {
-      hideSpreadshopUI();
-      if (document.getElementById('myShop')?.querySelector('[class*="product"], [class*="Product"], img')) {
-        clearInterval(interval);
-      }
-    }, 500);
-
-    // Also run after a delay to catch late-loading elements
-    setTimeout(hideSpreadshopUI, 2000);
-    setTimeout(hideSpreadshopUI, 5000);
+    // Run after shop loads
+    setTimeout(hideSpreadshopBanners, 1000);
+    setTimeout(hideSpreadshopBanners, 3000);
+    setTimeout(hideSpreadshopBanners, 5000);
   </script>
 
   <style>
@@ -223,24 +208,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       font-size: 1.1rem;
     }
 
-    /* Hide Spreadshop's default header/nav/banners with more specific selectors */
-    #myShop > div > div:first-child,
-    #myShop > div > div:first-child > div:first-child,
-    #myShop > div > div:first-child > div:first-child > div:first-child {
+    /* Don't hide everything - be more selective */
+    /* Only hide if it's clearly a banner with red background */
+    #myShop div[style*="rgb(255, 0, 0)"],
+    #myShop div[style*="rgb(220, 53, 69)"],
+    #myShop div[style*="#dc3545"],
+    #myShop div[style*="#ff0000"] {
       display: none !important;
-    }
-
-    /* Target Spreadshop's top bar specifically */
-    #myShop div[style*="background"],
-    #myShop div[style*="red"],
-    #myShop div[style*="banner"] {
-      display: none !important;
-    }
-
-    /* Style the actual product container */
-    #myShop > div > div:not(:first-child),
-    #myShop > div > div:last-child {
-      display: block !important;
     }
 
     /* Custom product card styling */

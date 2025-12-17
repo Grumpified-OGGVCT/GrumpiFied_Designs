@@ -62,30 +62,15 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
         opacity: 0.8;
       }
 
-      /* Hide Spreadshop's default UI elements */
-      #myShop > div:first-child > div:first-child,
-      #myShop .spread-shop-header,
-      #myShop .spread-shop-navigation,
-      #myShop .spread-shop-banner,
-      #myShop iframe[src*="banner"],
-      #myShop > div > div:first-child > div:first-child {
-        display: none !important;
-      }
-
-      /* Override Spreadshop's default styling */
+      /* Override Spreadshop's default styling - but don't hide products! */
       #myShop {
         background: transparent !important;
         padding: 0 !important;
       }
 
+      /* Make text white where possible */
       #myShop * {
         color: white !important;
-      }
-
-      /* Hide Spreadshop's top bar/banner */
-      #myShop > div > div:first-child,
-      #myShop > div > div:first-child > div:first-child {
-        display: none !important;
       }
 
       /* Style product grid */
