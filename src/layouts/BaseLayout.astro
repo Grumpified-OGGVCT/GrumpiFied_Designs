@@ -16,6 +16,16 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     
+    <!-- Spreadshop Configuration (must load before shopclient script) -->
+    <script is:inline>
+      window.spread_shop_config = {
+        shopName: 'grumpified',
+        locale: 'us_US',
+        prefix: 'https://grumpified.myspreadshop.com',
+        baseId: 'myShop'
+      };
+    </script>
+    
     <!-- Spreadshop Script -->
     <script 
       is:inline

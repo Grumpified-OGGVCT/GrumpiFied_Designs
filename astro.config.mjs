@@ -2,6 +2,6 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://grumpified.com',
+  site: 'https://grumpified.lol',
   output: 'static',
 });
