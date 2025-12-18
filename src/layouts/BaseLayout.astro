@@ -81,12 +81,30 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
       }
 
 
-      /* Product cards - minimal styling, NO size/layout changes */
-      /* Only add subtle borders without affecting sizing */
+      /* Product cards - advanced styling with dark gray borders and hover effects */
+      /* Target product card links without changing their display type */
       #myShop main a[href*="#!/"]:has(img) {
-        border: 1px solid #333 !important;
-        border-radius: 8px !important;
-        display: inline-block !important;
+        border: 1px solid #2a2a2a !important;
+        border-radius: 10px !important;
+        overflow: hidden !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+      }
+
+      /* Hover effect - lift and shadow */
+      #myShop main a[href*="#!/"]:has(img):hover {
+        transform: translateY(-8px) !important;
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5) !important;
+        border-color: #3a3a3a !important;
+      }
+
+      /* Product images - subtle zoom on hover */
+      #myShop main a[href*="#!/"] img {
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
+
+      #myShop main a[href*="#!/"]:hover img {
+        transform: scale(1.05) !important;
       }
 
       /* Make promotional banners smaller and isolated (not full-width) */
