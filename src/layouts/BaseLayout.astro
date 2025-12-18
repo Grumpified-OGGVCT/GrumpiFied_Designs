@@ -62,26 +62,13 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
         opacity: 0.8;
       }
 
-      /* COMPLETELY ISOLATE Spreadshop - let it use ALL its original colors */
+      /* DO NOT touch Spreadshop - let it use its own colors completely */
       #myShop {
         background: transparent !important;
         padding: 0 !important;
-        /* Reset everything to let Spreadshop handle it */
-        color: initial !important;
       }
 
-      /* CRITICAL: Reset ALL color/background/text styling inside Spreadshop */
-      #myShop *,
-      #myShop *::before,
-      #myShop *::after {
-        color: revert !important;
-        background-color: revert !important;
-        background: revert !important;
-        border-color: revert !important;
-      }
-
-      /* Style Spreadshop's default navigation menu - borders and aesthetics ONLY */
-      /* DO NOT change colors, backgrounds, or text - let Spreadshop handle those */
+      /* Navigation menu - borders and shadows ONLY, NO color changes */
       #myShop > div > div:first-child > div:nth-child(3),
       #myShop nav[class*="navigation"],
       #myShop [class*="Navigation"],
@@ -91,9 +78,6 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
         border-radius: 8px !important;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
         margin-bottom: 1rem !important;
-        /* Explicitly reset any color/background overrides */
-        color: unset !important;
-        background-color: unset !important;
       }
 
       /* Make promotional banners smaller and isolated (not full-width) */
