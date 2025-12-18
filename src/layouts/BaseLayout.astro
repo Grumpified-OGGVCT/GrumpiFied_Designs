@@ -49,27 +49,33 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
 
       body {
         background-color: #111;
-        color: white;
         line-height: 1.6;
       }
 
-      a {
+      /* Only style links OUTSIDE of Spreadshop */
+      body > *:not(#myShop) a {
         color: white;
         text-decoration: none;
       }
 
-      a:hover {
+      body > *:not(#myShop) a:hover {
         opacity: 0.8;
       }
 
-      /* Override Spreadshop's default styling - but don't hide products! */
+      /* DO NOT touch anything inside Spreadshop - let it use its own colors */
       #myShop {
         background: transparent !important;
         padding: 0 !important;
       }
 
-      /* Style Spreadshop's default navigation menu - borders and aesthetics only, no background/text changes */
-      /* Target the menu with "All Products", "Organic Products", etc. */
+      /* DO NOT apply any color, background, or text styling to anything inside #myShop */
+      #myShop * {
+        color: unset !important;
+        background-color: unset !important;
+      }
+
+      /* Style Spreadshop's default navigation menu - borders and aesthetics ONLY */
+      /* DO NOT change colors, backgrounds, or text - let Spreadshop handle those */
       #myShop > div > div:first-child > div:nth-child(3),
       #myShop nav[class*="navigation"],
       #myShop [class*="Navigation"],
@@ -79,6 +85,9 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
         border-radius: 8px !important;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
         margin-bottom: 1rem !important;
+        /* Explicitly reset any color/background overrides */
+        color: unset !important;
+        background-color: unset !important;
       }
 
       /* Make promotional banners smaller and isolated (not full-width) */
@@ -108,14 +117,15 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
         padding: 12px 16px !important;
       }
 
-      /* Style product grid */
+      /* Style product grid - borders and effects ONLY, no color changes */
       #myShop .spread-shop-product,
       #myShop [class*="product"],
       #myShop [class*="Product"] {
-        background: #1a1a1a !important;
         border: 1px solid #333 !important;
         border-radius: 8px !important;
         transition: transform 0.2s, box-shadow 0.2s !important;
+        /* DO NOT change background or colors */
+        background-color: unset !important;
       }
 
       #myShop .spread-shop-product:hover,
