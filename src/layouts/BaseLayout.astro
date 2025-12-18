@@ -68,31 +68,17 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
         padding: 0 !important;
       }
 
-      /* Make text white - but DO NOT touch images, color swatches, or any Spreadshop color elements */
-      #myShop p,
-      #myShop h1,
-      #myShop h2,
-      #myShop h3,
-      #myShop h4,
-      #myShop h5,
-      #myShop h6,
-      #myShop label {
-        color: white !important;
-      }
-
-      /* Hide Spreadshop's default navigation menu since we have our own */
+      /* Style Spreadshop's default navigation menu - borders and aesthetics only, no background/text changes */
       /* Target the menu with "All Products", "Organic Products", etc. */
       #myShop > div > div:first-child > div:nth-child(3),
       #myShop nav[class*="navigation"],
       #myShop [class*="Navigation"],
       #myShop [class*="main-nav"],
-      #myShop [class*="MainNav"],
-      /* Hide any navigation links that duplicate our custom menu */
-      #myShop > div > div:first-child > div:nth-child(3) > div,
-      #myShop > div > div:first-child > div:nth-child(3) a[href*="#!/all"],
-      #myShop > div > div:first-child > div:nth-child(3) a[href*="#!/men"],
-      #myShop > div > div:first-child > div:nth-child(3) a[href*="#!/women"] {
-        display: none !important;
+      #myShop [class*="MainNav"] {
+        border: 1px solid #333 !important;
+        border-radius: 8px !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+        margin-bottom: 1rem !important;
       }
 
       /* Make promotional banners smaller and isolated (not full-width) */
