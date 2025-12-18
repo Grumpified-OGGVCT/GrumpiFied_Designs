@@ -62,7 +62,7 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
         opacity: 0.8;
       }
 
-      /* DO NOT touch Spreadshop - let it use its own colors completely */
+      /* DO NOT touch Spreadshop colors - let it use its own colors completely */
       #myShop {
         background: transparent !important;
         padding: 0 !important;
@@ -78,6 +78,27 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
         border-radius: 8px !important;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
         margin-bottom: 1rem !important;
+      }
+
+      /* Product cards - borders, shadows, and hover effects ONLY, NO color changes */
+      #myShop .spread-shop-product,
+      #myShop [class*="product"],
+      #myShop [class*="Product"],
+      #myShop [class*="product-card"],
+      #myShop [class*="ProductCard"],
+      #myShop [class*="item"],
+      #myShop [class*="Item"] {
+        border: 1px solid #333 !important;
+        border-radius: 8px !important;
+        transition: transform 0.2s, box-shadow 0.2s !important;
+      }
+
+      #myShop .spread-shop-product:hover,
+      #myShop [class*="product"]:hover,
+      #myShop [class*="product-card"]:hover,
+      #myShop [class*="ProductCard"]:hover {
+        transform: translateY(-4px) !important;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3) !important;
       }
 
       /* Make promotional banners smaller and isolated (not full-width) */
