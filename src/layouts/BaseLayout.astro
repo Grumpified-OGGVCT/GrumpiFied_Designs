@@ -88,9 +88,12 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
         opacity: 1 !important;
         color: unset !important;
         background-color: unset !important;
+        -webkit-filter: none !important;
+        mix-blend-mode: normal !important;
       }
 
-      /* Preserve color swatch images specifically */
+      /* Preserve color swatch images specifically - buttons with images inside */
+      #myShop button img,
       #myShop a[href*="appearance"] img,
       #myShop a img[alt*="blue"],
       #myShop a img[alt*="pink"],
@@ -108,9 +111,23 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
       #myShop a img[alt*="olive"],
       #myShop a img[alt*="kelly"],
       #myShop a img[alt*="burgundy"],
-      #myShop a img[alt*="oatmeal"] {
+      #myShop a img[alt*="oatmeal"],
+      #myShop button[aria-label*="blue"] img,
+      #myShop button[aria-label*="pink"] img,
+      #myShop button[aria-label*="teal"] img,
+      #myShop button[aria-label*="green"] img,
+      #myShop button[aria-label*="red"] img,
+      #myShop button[aria-label*="purple"] img,
+      #myShop button[aria-label*="yellow"] img,
+      #myShop button[aria-label*="gray"] img,
+      #myShop button[aria-label*="white"] img,
+      #myShop button[aria-label*="black"] img,
+      #myShop button[aria-label*="heather"] img {
         filter: none !important;
         opacity: 1 !important;
+        -webkit-filter: none !important;
+        mix-blend-mode: normal !important;
+        background-color: transparent !important;
       }
 
       /* CRITICAL: Never touch color swatches - preserve their original colors */
@@ -145,15 +162,45 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
       }
 
       /* Hide Spreadshop's default navigation menu since we have our own */
-      #myShop > div > div:first-child > div:nth-child(2),
+      /* Target the menu with "All Products", "Organic Products", etc. */
+      #myShop > div > div:first-child > div:nth-child(3),
       #myShop nav[class*="navigation"],
       #myShop [class*="Navigation"],
       #myShop [class*="main-nav"],
       #myShop [class*="MainNav"],
-      /* Hide the whited-out menu that appears below product details */
-      #myShop > div > div:first-child > div:nth-child(3),
-      #myShop > div > div:first-child > div:nth-child(3) > div {
+      /* Hide any navigation links that duplicate our custom menu */
+      #myShop > div > div:first-child > div:nth-child(3) > div,
+      #myShop > div > div:first-child > div:nth-child(3) a[href*="#!/all"],
+      #myShop > div > div:first-child > div:nth-child(3) a[href*="#!/men"],
+      #myShop > div > div:first-child > div:nth-child(3) a[href*="#!/women"] {
         display: none !important;
+      }
+
+      /* Make promotional banners smaller and isolated (not full-width) */
+      /* Red "Order now for delivery" banner */
+      #myShop > div > div:first-child > div:first-child {
+        position: fixed !important;
+        top: 80px !important;
+        right: 20px !important;
+        width: 300px !important;
+        max-width: 90vw !important;
+        z-index: 1000 !important;
+        border-radius: 8px !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+        padding: 12px 16px !important;
+      }
+
+      /* Blue "25% off" banner */
+      #myShop > div > div:first-child > div:nth-child(2) {
+        position: fixed !important;
+        top: 160px !important;
+        right: 20px !important;
+        width: 300px !important;
+        max-width: 90vw !important;
+        z-index: 1000 !important;
+        border-radius: 8px !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+        padding: 12px 16px !important;
       }
 
       /* Style product grid */
