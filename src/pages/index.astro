@@ -87,6 +87,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       if (loadingText && hasProducts) {
         loadingText.style.display = 'none';
       }
+
+      // Fix "New" labels to be white and visible
+      const allElements = shopContainer.querySelectorAll('*');
+      allElements.forEach(function(el) {
+        const text = el.textContent?.trim() || '';
+        if (text === 'New' || text === 'NEW') {
+          el.style.color = 'white !important';
+          el.style.backgroundColor = '#4a90e2 !important';
+          el.style.padding = '4px 8px';
+          el.style.borderRadius = '4px';
+          el.style.fontWeight = '600';
+          el.style.fontSize = '0.75rem';
+        }
+      });
     }
 
     // Handle hash changes for Spreadshop routing

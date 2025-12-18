@@ -82,17 +82,14 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
         color: white !important;
       }
 
-      /* Ensure "New" labels are white and visible */
+      /* Ensure "New" labels are white and visible - target by common Spreadshop classes */
       #myShop [class*="new"],
       #myShop [class*="New"],
-      #myShop generic:has-text("New"),
-      #myShop *:contains("New") {
+      #myShop [class*="badge"],
+      #myShop [class*="Badge"],
+      #myShop [class*="label"],
+      #myShop [class*="Label"] {
         color: white !important;
-        background-color: #4a90e2 !important;
-        padding: 4px 8px !important;
-        border-radius: 4px !important;
-        font-weight: 600 !important;
-        font-size: 0.75rem !important;
       }
 
       /* CRITICAL: NEVER touch images - they ARE the color swatches! */
