@@ -373,23 +373,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       display: none !important;
     }
 
-    /* Custom product card styling */
-    #myShop [class*="product-card"],
-    #myShop [class*="ProductCard"],
-    #myShop [class*="item"],
-    #myShop [class*="Item"] {
-      background: #1a1a1a !important;
-      border: 1px solid #333 !important;
-      border-radius: 12px !important;
-      overflow: hidden !important;
-      transition: all 0.3s ease !important;
-    }
-
-    #myShop [class*="product-card"]:hover,
-    #myShop [class*="ProductCard"]:hover {
-      transform: translateY(-6px) !important;
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4) !important;
-    }
 
     /* Hide loading text once shop loads */
     #myShop:not(:empty) ~ .shop-loading,
