@@ -82,25 +82,49 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
 
 
       /* Product cards - advanced styling with borders, shadows, hover effects - NO color changes */
+      /* Target all possible Spreadshop product containers */
       #myShop .spread-shop-product,
       #myShop [class*="product"],
       #myShop [class*="Product"],
       #myShop [class*="product-card"],
       #myShop [class*="ProductCard"],
       #myShop [class*="item"],
-      #myShop [class*="Item"] {
+      #myShop [class*="Item"],
+      #myShop a[href*="#!/"]:has(img),
+      #myShop main a[href*="#!/"],
+      #myShop main > div > div > div a[href*="#!/"],
+      #myShop [class*="grid"] > *,
+      #myShop [class*="Grid"] > *,
+      #myShop [class*="list"] > *,
+      #myShop [class*="List"] > * {
         border: 1px solid #333 !important;
         border-radius: 12px !important;
         overflow: hidden !important;
         transition: all 0.3s ease !important;
+        display: block !important;
+        position: relative !important;
       }
 
       #myShop .spread-shop-product:hover,
       #myShop [class*="product"]:hover,
       #myShop [class*="product-card"]:hover,
-      #myShop [class*="ProductCard"]:hover {
+      #myShop [class*="ProductCard"]:hover,
+      #myShop a[href*="#!/"]:has(img):hover,
+      #myShop main a[href*="#!/"]:hover {
         transform: translateY(-6px) !important;
         box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4) !important;
+      }
+
+      /* Ensure product images have proper styling */
+      #myShop a[href*="#!/"] img,
+      #myShop main a[href*="#!/"] img {
+        border-radius: 12px 12px 0 0 !important;
+        transition: transform 0.3s ease !important;
+      }
+
+      #myShop a[href*="#!/"]:hover img,
+      #myShop main a[href*="#!/"]:hover img {
+        transform: scale(1.05) !important;
       }
 
       /* Make promotional banners smaller and isolated (not full-width) */
