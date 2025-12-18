@@ -62,16 +62,22 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
         opacity: 0.8;
       }
 
-      /* DO NOT touch anything inside Spreadshop - let it use its own colors */
+      /* COMPLETELY ISOLATE Spreadshop - let it use ALL its original colors */
       #myShop {
         background: transparent !important;
         padding: 0 !important;
+        /* Reset everything to let Spreadshop handle it */
+        color: initial !important;
       }
 
-      /* DO NOT apply any color, background, or text styling to anything inside #myShop */
-      #myShop * {
-        color: unset !important;
-        background-color: unset !important;
+      /* CRITICAL: Reset ALL color/background/text styling inside Spreadshop */
+      #myShop *,
+      #myShop *::before,
+      #myShop *::after {
+        color: revert !important;
+        background-color: revert !important;
+        background: revert !important;
+        border-color: revert !important;
       }
 
       /* Style Spreadshop's default navigation menu - borders and aesthetics ONLY */
