@@ -93,8 +93,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       allElements.forEach(function(el) {
         const text = el.textContent?.trim() || '';
         if (text === 'New' || text === 'NEW') {
-          el.style.color = 'white !important';
-          el.style.backgroundColor = '#4a90e2 !important';
+          el.style.setProperty('color', 'white', 'important');
+          el.style.setProperty('background-color', '#4a90e2', 'important');
           el.style.padding = '4px 8px';
           el.style.borderRadius = '4px';
           el.style.fontWeight = '600';
