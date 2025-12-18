@@ -123,22 +123,6 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
         padding: 12px 16px !important;
       }
 
-      /* Style product grid - borders and effects ONLY, no color changes */
-      #myShop .spread-shop-product,
-      #myShop [class*="product"],
-      #myShop [class*="Product"] {
-        border: 1px solid #333 !important;
-        border-radius: 8px !important;
-        transition: transform 0.2s, box-shadow 0.2s !important;
-        /* DO NOT change background or colors */
-        background-color: unset !important;
-      }
-
-      #myShop .spread-shop-product:hover,
-      #myShop [class*="product"]:hover {
-        transform: translateY(-4px) !important;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3) !important;
-      }
     </style>
   </body>
 </html>
