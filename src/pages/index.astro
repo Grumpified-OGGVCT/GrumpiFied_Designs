@@ -61,65 +61,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </footer>
 
   <script is:inline>
-    // Handle Spreadshop hash routing - don't hide banners, just style them
+    // Handle Spreadshop hash routing - minimal styling only
     function styleSpreadshopElements() {
       const shopContainer = document.getElementById('myShop');
       if (!shopContainer) return;
-
-      // Apply advanced card styling to product links
-      const productLinks = shopContainer.querySelectorAll('a[href*="#!/"]');
-      productLinks.forEach(function(link) {
-        // Only style if it contains an image (actual product card)
-        const hasImage = link.querySelector('img');
-        if (hasImage && !link.dataset.styled) {
-          link.style.border = '1px solid #333';
-          link.style.borderRadius = '12px';
-          link.style.overflow = 'hidden';
-          link.style.transition = 'all 0.3s ease';
-          link.style.display = 'block';
-          link.style.position = 'relative';
-          link.dataset.styled = 'true';
-          
-          // Style the image inside
-          const img = link.querySelector('img');
-          if (img) {
-            img.style.borderRadius = '12px 12px 0 0';
-            img.style.transition = 'transform 0.3s ease';
-          }
-          
-          // Add hover effect
-          link.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-6px)';
-            this.style.boxShadow = '0 12px 24px rgba(0, 0, 0, 0.4)';
-            if (img) {
-              img.style.transform = 'scale(1.05)';
-            }
-          });
-          
-          link.addEventListener('mouseleave', function() {
-            this.style.transform = '';
-            this.style.boxShadow = '';
-            if (img) {
-              img.style.transform = '';
-            }
-          });
-        }
-      });
-
-      // Style banners to match our theme instead of hiding them
-      const banners = shopContainer.querySelectorAll('*');
-      banners.forEach(function(el) {
-        const text = el.textContent || '';
-        
-        // Style promotional banners to match dark theme
-        if (text.includes('Order now for delivery') || 
-            text.includes('Expires today') || 
-            text.includes('25% off')) {
-          // Keep banners visible but style them
-          el.style.borderRadius = '8px';
-          el.style.marginBottom = '1rem';
-        }
-      });
 
       // Hide loading text once products appear
       const loadingText = document.querySelector('.shop-loading');
