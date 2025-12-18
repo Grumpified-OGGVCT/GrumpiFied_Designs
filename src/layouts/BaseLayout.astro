@@ -68,107 +68,16 @@ const { title, description = 'GrumpiFied Designs - Custom Merchandise' } = Astro
         padding: 0 !important;
       }
 
-      /* Make text white, but NEVER touch images (they are the color swatches!) */
-      #myShop p:not([class*="color"]):not([class*="swatch"]),
-      #myShop a:not([class*="color"]):not([class*="swatch"]) > :not(img),
-      #myShop h1:not([class*="color"]):not([class*="swatch"]),
-      #myShop h2:not([class*="color"]):not([class*="swatch"]),
-      #myShop h3:not([class*="color"]):not([class*="swatch"]),
-      #myShop h4:not([class*="color"]):not([class*="swatch"]),
-      #myShop h5:not([class*="color"]):not([class*="swatch"]),
-      #myShop h6:not([class*="color"]):not([class*="swatch"]),
-      #myShop label:not([class*="color"]):not([class*="swatch"]),
-      #myShop button:not([class*="color"]):not([class*="swatch"]):not([role="button"][aria-label*="color"]) {
+      /* Make text white - but DO NOT touch images, color swatches, or any Spreadshop color elements */
+      #myShop p,
+      #myShop h1,
+      #myShop h2,
+      #myShop h3,
+      #myShop h4,
+      #myShop h5,
+      #myShop h6,
+      #myShop label {
         color: white !important;
-      }
-
-      /* Ensure "New" labels are white and visible - target by common Spreadshop classes */
-      #myShop [class*="new"],
-      #myShop [class*="New"],
-      #myShop [class*="badge"],
-      #myShop [class*="Badge"],
-      #myShop [class*="label"],
-      #myShop [class*="Label"] {
-        color: white !important;
-      }
-
-      /* CRITICAL: NEVER touch images - they ARE the color swatches! */
-      #myShop img {
-        filter: none !important;
-        opacity: 1 !important;
-        color: unset !important;
-        background-color: unset !important;
-        -webkit-filter: none !important;
-        mix-blend-mode: normal !important;
-      }
-
-      /* Preserve color swatch images specifically - buttons with images inside */
-      #myShop button img,
-      #myShop a[href*="appearance"] img,
-      #myShop a img[alt*="blue"],
-      #myShop a img[alt*="pink"],
-      #myShop a img[alt*="teal"],
-      #myShop a img[alt*="green"],
-      #myShop a img[alt*="red"],
-      #myShop a img[alt*="purple"],
-      #myShop a img[alt*="yellow"],
-      #myShop a img[alt*="gray"],
-      #myShop a img[alt*="white"],
-      #myShop a img[alt*="black"],
-      #myShop a img[alt*="heather"],
-      #myShop a img[alt*="royal"],
-      #myShop a img[alt*="steel"],
-      #myShop a img[alt*="olive"],
-      #myShop a img[alt*="kelly"],
-      #myShop a img[alt*="burgundy"],
-      #myShop a img[alt*="oatmeal"],
-      #myShop button[aria-label*="blue"] img,
-      #myShop button[aria-label*="pink"] img,
-      #myShop button[aria-label*="teal"] img,
-      #myShop button[aria-label*="green"] img,
-      #myShop button[aria-label*="red"] img,
-      #myShop button[aria-label*="purple"] img,
-      #myShop button[aria-label*="yellow"] img,
-      #myShop button[aria-label*="gray"] img,
-      #myShop button[aria-label*="white"] img,
-      #myShop button[aria-label*="black"] img,
-      #myShop button[aria-label*="heather"] img {
-        filter: none !important;
-        opacity: 1 !important;
-        -webkit-filter: none !important;
-        mix-blend-mode: normal !important;
-        background-color: transparent !important;
-      }
-
-      /* CRITICAL: Never touch color swatches - preserve their original colors */
-      #myShop [class*="color"],
-      #myShop [class*="Color"],
-      #myShop [class*="swatch"],
-      #myShop [class*="Swatch"],
-      #myShop [role="button"][aria-label*="color"],
-      #myShop [role="button"][aria-label*="Color"],
-      #myShop button[aria-label*="color"],
-      #myShop button[aria-label*="Color"],
-      #myShop [style*="background-color"]:not([style*="rgb(255"]):not([style*="#fff"]):not([style*="white"]):not([style*="transparent"]),
-      #myShop circle,
-      #myShop svg,
-      #myShop [fill],
-      #myShop [style*="fill"] {
-        color: unset !important;
-        background-color: unset !important;
-        fill: unset !important;
-        filter: none !important;
-      }
-
-      /* Preserve all SVG and circle colors completely */
-      #myShop svg *,
-      #myShop circle *,
-      #myShop [class*="color"] *,
-      #myShop [class*="swatch"] * {
-        color: unset !important;
-        fill: unset !important;
-        background-color: unset !important;
-        filter: none !important;
       }
 
       /* Hide Spreadshop's default navigation menu since we have our own */
